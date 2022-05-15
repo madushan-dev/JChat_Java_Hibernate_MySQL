@@ -10,10 +10,12 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pojos.Files;
 import pojos.Groups;
 import pojos.Users;
 
@@ -42,6 +44,8 @@ public class DBManager {
         List User = qu.list();
         return User;
     }
+        
+
         
         
         public boolean insert(byte[] avatar64based, String email, String username, String nickname, String password) {
@@ -101,7 +105,7 @@ public class DBManager {
             t.commit();
             s.close();
             
-//            this.init_msg_file(chatname);
+            this.init_msg_file(chatname);
             
             return true;
         } catch (Exception e) {
@@ -109,7 +113,133 @@ public class DBManager {
         }
 
     }
+      
+          public void init_msg_file(String chat_name) {
+
+        Session s = Connection.getSessionFactory().openSession();
+        String sql = "FROM Groups WHERE name='" + chat_name + "'";
+        Query qu = s.createQuery(sql);
+        List Group = qu.list();
+
+        Iterator i = Group.iterator();
+        int chat_id=0;
+        if (i.hasNext()) {
+            Groups g = (Groups) i.next();
+            chat_id = g.getId();
+        }
+
+
+        Transaction t = s.beginTransaction();
+        Files files = new Files();
+
+        files.setChatId(chat_id);
+        files.setLink("chat_log/"+chat_id + "_.ser");
+
+        s.save(files);
+        t.commit();
+        s.close();
+
+    }
+      
+      
+//      Get Chat Groups 
+      public List get_chat_groups() {
+        Session sess = Connection.getSessionFactory().openSession();
+        String sql = "FROM Groups";
+        Query qu = sess.createQuery(sql);
+        List Group = qu.list();
+        
+        return Group;
+    }
+      
+      
+      public boolean is_online(int chat_id) {
+        Session sess = Connection.getSessionFactory().openSession();
+        String sql = "FROM Groups WHERE status=1 AND id=" + chat_id;
+        Query qu = sess.createQuery(sql);
+        List Group = qu.list();
+
+        Iterator i = Group.iterator();
+        if (i.hasNext()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+      
+    public boolean check_all_offline() {
+        Session sess = Connection.getSessionFactory().openSession();
+        String sql = "FROM Groups WHERE status=1";
+        Query qu = sess.createQuery(sql);
+        List Group = qu.list();
+
+        Iterator i = Group.iterator();
+        if (i.hasNext()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+      
+      
+    public boolean put_online(int chat_id) {
+        
+       
+
+        if (check_all_offline()) {
+            
+   
+
+            Session s = Connection.getSessionFactory().openSession();
+            Transaction tran = s.beginTransaction();
+
+            Groups group = (Groups) s.load(Groups.class, chat_id);
+            group.setStatus(true);
+
+            s.update(group);
+            tran.commit();
+            s.close();
+
+            return true;
+        } else {
+       
+            return false;
+        }
+    }
+    
+    
+        public void put_offline(int id) {
+        Session s = Connection.getSessionFactory().openSession();
+        Transaction tran = s.beginTransaction();
+
+        Groups groups = (Groups) s.load(Groups.class, id);
+        groups.setStatus(false);
+
+        s.update(groups);
+        tran.commit();
+        System.out.println(id + "offline...");
+        s.close();
+    }
+    
+    
+      
+      
+      
+      
+      
+      
+      
+//      All Users
+          
+        public List allUsers() {
+        Session sess = Connection.getSessionFactory().openSession();
+        String sql = "FROM Users WHERE";
+        Query qu = sess.createQuery(sql);
+        List Users = qu.list();
+        return Users;
+    }
         
     
+        
     
 }

@@ -1,5 +1,5 @@
 package pojos;
-// Generated 14-May-2022 16:48:58 by Hibernate Tools 4.3.1
+// Generated 15-May-2022 10:19:19 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -20,6 +20,12 @@ public class Groups  implements java.io.Serializable {
     public Groups() {
     }
 
+	
+    public Groups(String name, String description, boolean status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
     public Groups(String name, String description, boolean status, Date createdDate, Date createdTime) {
        this.name = name;
        this.description = description;

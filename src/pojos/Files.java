@@ -1,5 +1,5 @@
 package pojos;
-// Generated 14-May-2022 16:48:58 by Hibernate Tools 4.3.1
+// Generated 15-May-2022 10:19:19 by Hibernate Tools 4.3.1
 
 
 
@@ -10,16 +10,16 @@ public class Files  implements java.io.Serializable {
 
 
      private int id;
-     private String name;
-     private String path;
+     private int chatId;
+     private String link;
 
     public Files() {
     }
 
-    public Files(int id, String name, String path) {
+    public Files(int id, int chatId, String link) {
        this.id = id;
-       this.name = name;
-       this.path = path;
+       this.chatId = chatId;
+       this.link = link;
     }
    
     public int getId() {
@@ -29,19 +29,19 @@ public class Files  implements java.io.Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public String getName() {
-        return this.name;
+    public int getChatId() {
+        return this.chatId;
     }
     
-    public void setName(String name) {
-        this.name = name;
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
     }
-    public String getPath() {
-        return this.path;
+    public String getLink() {
+        return this.link;
     }
     
-    public void setPath(String path) {
-        this.path = path;
+    public void setLink(String link) {
+        this.link = link;
     }
 
 

@@ -41,7 +41,7 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="jchat"/>
-  <table-filter match-name="users"/>
   <table-filter match-name="groups"/>
   <table-filter match-name="files"/>
+  <table-filter match-name="users"/>
 </hibernate-reverse-engineering>
