@@ -18,7 +18,7 @@ public class ChatService extends UnicastRemoteObject implements Chat {
 
     Message newmsg = null;
     int group_id;
-    ArrayList<ChatClient> subs = new ArrayList<ChatClient>();
+    ArrayList<ChatClient> subs = new ArrayList<>();
 
     public ChatService(int group_id) throws RemoteException {
         super();
@@ -40,13 +40,11 @@ public class ChatService extends UnicastRemoteObject implements Chat {
     public void save_msg() {
 
         try {
-            FileOutputStream fileOut = new FileOutputStream("chat_log/"+this.newmsg.getGroup_id()+"_.ser", true);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-
-            out.writeObject(this.newmsg);
-            out.flush();
-            out.close();
-            fileOut.close();
+            try (FileOutputStream fileOut = new FileOutputStream("chat_log/"+this.newmsg.getGroup_id()+"_.ser", true); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                
+                out.writeObject(this.newmsg);
+                out.flush();
+            }
 
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -65,9 +63,7 @@ public class ChatService extends UnicastRemoteObject implements Chat {
             ObjectInputStream inobj = new ObjectInputStream(filein);
             subs = (ArrayList<ChatClient>) inobj.readObject();
             
-        } catch ( IOException ex) {
-            System.out.println(ex);
-        } catch (ClassNotFoundException ex) {
+        } catch ( IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }
 
@@ -77,8 +73,7 @@ public class ChatService extends UnicastRemoteObject implements Chat {
     public boolean is_subscribed(int client_id) {
         //retrive_subs();
         boolean subscribed=false;
-        for (Iterator<ChatClient> iterator = subs.iterator(); iterator.hasNext();) {
-            ChatClient next = iterator.next();
+        for (ChatClient next : subs) {
             if (next.getId()==client_id) {
                 subscribed=true;
                 break;
@@ -89,16 +84,17 @@ public class ChatService extends UnicastRemoteObject implements Chat {
 
     @Override
     public void subscribre(int group_id, ChatClient c) throws RemoteException {
+        
 
         subs.add(c);
         try {
-            FileOutputStream fileOut = new FileOutputStream("subscribers_log/"+group_id + "_subscribers.ser", true);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-
-            out.writeObject(c);
-            out.flush();
-            out.close();
-            fileOut.close();
+            try (FileOutputStream fileOut = new FileOutputStream("subscribers_log/"+group_id + "_subscribers.ser", true)) {
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                
+                out.writeObject(c);
+                out.flush();
+                out.close();
+            }
 
         } catch (FileNotFoundException e) {
             System.out.println(e);

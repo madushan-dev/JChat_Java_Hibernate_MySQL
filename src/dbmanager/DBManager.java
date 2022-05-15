@@ -105,6 +105,7 @@ public class DBManager {
             t.commit();
             s.close();
             
+            System.out.println("create group ");
             this.init_msg_file(chatname);
             
             return true;
@@ -240,6 +241,14 @@ public class DBManager {
     }
         
     
+     public List get_avatart(int user_id) {
+
+        Session sess = Connection.getSessionFactory().openSession();
+        String sql = "FROM Users WHERE id='" + user_id + "'";
+        Query qu = sess.createQuery(sql);
+        List User = qu.list();
+        return User;
+    }
         
     
 }
