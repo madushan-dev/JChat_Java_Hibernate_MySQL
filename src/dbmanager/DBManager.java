@@ -153,6 +153,31 @@ public class DBManager {
         return Group;
     }
       
+      //      Get Chat Groups 
+      public List get_all_users() {
+        Session sess = Connection.getSessionFactory().openSession();
+        String sql = "FROM Users";
+        Query qu = sess.createQuery(sql);
+        List Group = qu.list();
+        
+        return Group;
+    }
+      
+       public void delete_user(int user_id) {
+        
+        Session sess = Connection.getSessionFactory().openSession();
+        Transaction tran = sess.beginTransaction();
+        
+        Object object = sess.load(Users.class, user_id);
+
+        sess.delete(object);
+        
+        tran.commit();
+        sess.close();
+    }
+      
+      
+      
       
       public boolean is_online(int chat_id) {
         Session sess = Connection.getSessionFactory().openSession();

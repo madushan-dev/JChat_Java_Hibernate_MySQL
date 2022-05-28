@@ -72,8 +72,25 @@ public class ChatService extends UnicastRemoteObject implements Chat {
     @Override
     public boolean is_subscribed(int client_id) {
         //retrive_subs();
+      
         boolean subscribed=false;
         for (ChatClient next : subs) {
+              System.out.println("for loop");
+            
+            if (next.getId()==client_id) {
+                subscribed=true;
+                break;
+            }
+        }
+        return subscribed;
+    }
+        public boolean is_subscribed_client(int client_id) {
+        //retrive_subs();
+      
+        boolean subscribed=false;
+        for (ChatClient next : subs) {
+              System.out.println("for loop");
+            
             if (next.getId()==client_id) {
                 subscribed=true;
                 break;
