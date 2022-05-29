@@ -64,6 +64,7 @@ public class AppLayout extends javax.swing.JFrame {
     int id;
     Registry reg;
     Chat chat;
+    int active_group;
 
     static int xx, yy;
     static Chat_ball chat_ball;
@@ -84,7 +85,7 @@ public class AppLayout extends javax.swing.JFrame {
         textregpassword.setBackground(new java.awt.Color(0,0,0,1));
         textgroupname.setBackground(new java.awt.Color(0,0,0,1));
         textgroupdescription.setBackground(new java.awt.Color(0,0,0,1));
-        edit_email.setBackground(new java.awt.Color(0,0,0,1));
+    
         edit_username.setBackground(new java.awt.Color(0,0,0,1));
         edit_nickname.setBackground(new java.awt.Color(0,0,0,1));
         edit_password.setBackground(new java.awt.Color(0,0,0,1));
@@ -119,7 +120,7 @@ public class AppLayout extends javax.swing.JFrame {
         manage_users_panel.setVisible(false);
         
     }
-    
+   
 
     
 
@@ -336,7 +337,7 @@ public class AppLayout extends javax.swing.JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                 
-         
+                    active_group = next.getId();
                     group_action(next.getId(), g_action);
 
                 }
@@ -408,6 +409,8 @@ public class AppLayout extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }
+      
+
        
        
         static int enterd_grup_id;
@@ -477,15 +480,15 @@ public class AppLayout extends javax.swing.JFrame {
                         LocalDateTime myDateObj = LocalDateTime.now();
                         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                         String time_now = myDateObj.format(myFormatObj);
-
-
                         Message msg = new Message();
                         msg.setDate_time(time_now);
                         String user = me.getUsername();
                         m = "****** " + user  + " has join the chat " + " ******";
                         msg.setMessage(m);
                         try {
+                            
                             chat.send_message(msg);
+                            System.out.println(msg);
                         } catch (RemoteException ex) {
                             Logger.getLogger(AppLayout.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -663,14 +666,11 @@ public class AppLayout extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
-        edit_email = new javax.swing.JTextField();
         edit_password = new javax.swing.JPasswordField();
         disable3 = new javax.swing.JLabel();
         btnreg1 = new javax.swing.JButton();
         show3 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
         edit_username = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -1195,7 +1195,7 @@ public class AppLayout extends javax.swing.JFrame {
                 .addGroup(admin_panelLayout.createSequentialGroup()
                     .addGap(516, 516, 516)
                     .addComponent(create_group2)
-                    .addContainerGap(375, Short.MAX_VALUE)))
+                    .addContainerGap(364, Short.MAX_VALUE)))
         );
         admin_panelLayout.setVerticalGroup(
             admin_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1205,7 +1205,7 @@ public class AppLayout extends javax.swing.JFrame {
                 .addGroup(admin_panelLayout.createSequentialGroup()
                     .addGap(282, 282, 282)
                     .addComponent(create_group2)
-                    .addContainerGap(282, Short.MAX_VALUE)))
+                    .addContainerGap(263, Short.MAX_VALUE)))
         );
 
         create_chat_panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -1585,7 +1585,7 @@ public class AppLayout extends javax.swing.JFrame {
 
         jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel49.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel49.setText("GROUP NAME");
+        jLabel49.setText("GROUP CHAT");
         jPanel12.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
 
         msg_typer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -1753,17 +1753,7 @@ public class AppLayout extends javax.swing.JFrame {
         jLabel75.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel75.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaces/icons/icons8_user_20px_1.png"))); // NOI18N
-        jPanel19.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 56, 56));
-
-        edit_email.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        edit_email.setForeground(new java.awt.Color(255, 255, 255));
-        edit_email.setBorder(null);
-        edit_email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edit_emailActionPerformed(evt);
-            }
-        });
-        jPanel19.add(edit_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 308, 30));
+        jPanel19.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 56, 56));
 
         edit_password.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edit_password.setForeground(new java.awt.Color(255, 255, 255));
@@ -1818,16 +1808,6 @@ public class AppLayout extends javax.swing.JFrame {
         jLabel79.setText("_______________________________");
         jPanel19.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
 
-        jLabel80.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel80.setText("Email");
-        jPanel19.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
-
-        jLabel81.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel81.setText("_______________________________");
-        jPanel19.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, -1, -1));
-
         edit_username.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edit_username.setForeground(new java.awt.Color(255, 255, 255));
         edit_username.setBorder(null);
@@ -1836,17 +1816,17 @@ public class AppLayout extends javax.swing.JFrame {
                 edit_usernameActionPerformed(evt);
             }
         });
-        jPanel19.add(edit_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 308, 30));
+        jPanel19.add(edit_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 308, 30));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Nickname");
-        jPanel19.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
+        jPanel19.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("_______________________________");
-        jPanel19.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, -1, -1));
+        jPanel19.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, -1, -1));
 
         update_msg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         update_msg.setForeground(new java.awt.Color(255, 0, 51));
@@ -1879,17 +1859,17 @@ public class AppLayout extends javax.swing.JFrame {
                 edit_nicknameActionPerformed(evt);
             }
         });
-        jPanel19.add(edit_nickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 308, 30));
+        jPanel19.add(edit_nickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 308, 30));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("_______________________________");
-        jPanel19.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+        jPanel19.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Username");
-        jPanel19.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, -1));
+        jPanel19.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, -1, -1));
 
         javax.swing.GroupLayout edit_profile_panelLayout = new javax.swing.GroupLayout(edit_profile_panel);
         edit_profile_panel.setLayout(edit_profile_panelLayout);
@@ -2013,7 +1993,13 @@ public class AppLayout extends javax.swing.JFrame {
         user_panel.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
         userlist1.setEditable(true);
+        userlist1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         userlist1.setBorder(null);
+        userlist1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                userlist1ItemStateChanged(evt);
+            }
+        });
         userlist1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userlist1ActionPerformed(evt);
@@ -2029,14 +2015,14 @@ public class AppLayout extends javax.swing.JFrame {
                 remove_userMouseClicked(evt);
             }
         });
-        user_panel.add(remove_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 150, 30));
+        user_panel.add(remove_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 200, 150, 30));
 
         text_delete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         text_delete.setForeground(new java.awt.Color(255, 0, 51));
         text_delete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user_panel.add(text_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 270, 20));
+        user_panel.add(text_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 270, 20));
 
-        manage_users_panel.add(user_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 0, 771, 560));
+        manage_users_panel.add(user_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, -13, 771, 580));
 
         jLayeredPane1.setLayer(login_panel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(register_panel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -2070,7 +2056,7 @@ public class AppLayout extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(list_groups_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, Short.MAX_VALUE)
+                    .addComponent(list_groups_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1009, Short.MAX_VALUE)
                     .addGap(24, 24, 24)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
@@ -2264,10 +2250,6 @@ public class AppLayout extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnregMouseClicked
 
-    private void edit_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edit_emailActionPerformed
-
     private void edit_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edit_passwordActionPerformed
@@ -2283,7 +2265,7 @@ public class AppLayout extends javax.swing.JFrame {
 
     private void btnreg1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreg1MouseClicked
         // TODO add your handling code here:
-        String email = edit_email.getText().trim();
+  
         String username = edit_username.getText().trim();
         String nickname = edit_nickname.getText().trim();
         String password = edit_password.getText().trim();
@@ -2523,7 +2505,7 @@ public class AppLayout extends javax.swing.JFrame {
                 byte[] profile_image = user.getProfileImage();
                 id = user.getId();
 
-                edit_email.setText(email);
+      
                 edit_username.setText(username);
                 edit_nickname.setText(nickname);
                 edit_password.setText(password);
@@ -2667,6 +2649,10 @@ public class AppLayout extends javax.swing.JFrame {
          app_ui_reset();
         manage_users_panel.setVisible(true);
     }//GEN-LAST:event_jLabel40MouseClicked
+
+    private void userlist1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_userlist1ItemStateChanged
+
+    }//GEN-LAST:event_userlist1ItemStateChanged
 
     int y2 = 210;
 
@@ -2917,7 +2903,6 @@ public class AppLayout extends javax.swing.JFrame {
     private javax.swing.JLabel disable;
     private javax.swing.JLabel disable2;
     private javax.swing.JLabel disable3;
-    private javax.swing.JTextField edit_email;
     private javax.swing.JTextField edit_nickname;
     private javax.swing.JPasswordField edit_password;
     private javax.swing.JLabel edit_profile_image;
@@ -2985,8 +2970,6 @@ public class AppLayout extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
